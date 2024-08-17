@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,12 +46,22 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
-                Log.d(LOG_TAG, movies.toString());
                 moviesAdapter.setMovies(movies);
+                movies.forEach(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movie) {
+                        Log.d(LOG_TAG, movie.toString());
+                    }
+                });
             }
         });
         viewModel.loadMovies();
-
+        moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() {
+            @Override
+            public void onReachEnd() {
+                viewModel.loadMovies();
+            }
+        });
         viewModel.getIsNowLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isNowLoading) {
