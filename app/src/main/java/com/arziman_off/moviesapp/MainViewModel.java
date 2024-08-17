@@ -20,11 +20,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainViewModel extends AndroidViewModel {
     private final String LOG_TAG = "MainViewModel";
     private final MutableLiveData<List<Movie>> movies = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isNowLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isNowLoading = new MutableLiveData<>(false);
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private int page = 1;
     public MainViewModel(@NonNull Application application) {
         super(application);
+        loadMovies();
     }
     public LiveData<List<Movie>> getMovies() {
         return movies;
@@ -33,6 +34,10 @@ public class MainViewModel extends AndroidViewModel {
         return isNowLoading;
     }
     public void loadMovies(){
+        Boolean nowLoading = isNowLoading.getValue();
+        if (nowLoading != null && nowLoading){
+            return;
+        }
         Disposable disposable = ApiFactory.apiService.loadMovies(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -42,7 +47,7 @@ public class MainViewModel extends AndroidViewModel {
                         isNowLoading.setValue(true);
                     }
                 })
-                .doOnTerminate(new Action() {
+                .doAfterTerminate(new Action() {
                     @Override
                     public void run() throws Throwable {
                         isNowLoading.setValue(false);
@@ -59,6 +64,7 @@ public class MainViewModel extends AndroidViewModel {
                                 } else {
                                     movies.setValue(movieResponse.getMovies());
                                 }
+                                Log.d(LOG_TAG,"loaded: "+ page);
                                 page++;
                             }
                         },
