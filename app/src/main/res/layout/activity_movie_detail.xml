@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,11 +7,231 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tool_bar_bg"
+            android:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
+
+            <ImageView
+                android:id="@+id/goBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/go_back_icon"
+                android:contentDescription="Кнопка для возвращения на предыдущий экран"
+                android:layout_gravity="start"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/toolbarLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@null"
+                android:contentDescription="Иконка приложения"
+                android:layout_gravity="start"
+                android:padding="8dp"
+                android:visibility="visible"
+                tools:visibility="visible"
+                />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MoviesApp"
+                android:textColor="#9B4DCB"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium" />
+
+            <ImageView
+                android:id="@+id/favorites_list_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/liked_list_icon"
+                android:contentDescription="Список отложенных фильмов"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/movie_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            >
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/movie_details_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:minWidth="250dp"
+                android:minHeight="250dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="@null"
+                android:layout_marginVertical="4dp"
+                tools:src="@tools:sample/avatars"
+                app:shapeAppearanceOverlay="@style/rounded_image_view"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/movie_details_name"
+
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                />
+            <TextView
+                android:id="@+id/kp_rating_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="8.3"
+                android:textSize="16sp"
+                tools:background="@drawable/rating_box_bg_high"
+                app:drawableTopCompat="@drawable/kp_icon"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/movie_details_poster"
+                app:layout_constraintTop_toTopOf="@id/movie_details_poster"
+                app:layout_constraintEnd_toStartOf="@id/imdb_rating_text"
+
+                android:padding="4dp"
+                android:layout_marginHorizontal="4dp"
+                />
+            <TextView
+                android:id="@+id/imdb_rating_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="8.3"
+                android:textSize="16sp"
+                tools:background="@drawable/rating_box_bg_high"
+                app:drawableTopCompat="@drawable/imdb_icon"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/kp_rating_text"
+                app:layout_constraintTop_toTopOf="@id/movie_details_poster"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                android:padding="4dp"
+                />
+            <LinearLayout
+                android:id="@+id/movie_details_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/movie_details_poster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/kp_rating_text"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                >
+                <TextView
+                    android:id="@+id/year_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Год производства:"
+                    android:textSize="12sp"
+                    android:textAlignment="textStart"
+                    />
+                <TextView
+                    android:id="@+id/year_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2011"
+                    android:textSize="16sp"
+                    android:textAlignment="textEnd"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/movie_details_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/movie_details_poster"
+                app:layout_constraintTop_toBottomOf="@id/movie_details_year"
+                app:layout_constraintEnd_toEndOf="parent"
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:orientation="vertical"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                >
+                <TextView
+                    android:id="@+id/name_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Название:"
+                    android:textSize="12sp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="4dp"
+                    />
+                <TextView
+                    android:id="@+id/name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1+1"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/movie_details_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_details_name"
+                android:orientation="vertical"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="8dp"
+                >
+                <TextView
+                    android:id="@+id/description_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Описание фильма:"
+                    android:textSize="12sp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="4dp"
+                    />
+                <TextView
+                    android:id="@+id/description_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
 
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
