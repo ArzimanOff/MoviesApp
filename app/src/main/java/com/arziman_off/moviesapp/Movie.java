@@ -2,7 +2,9 @@ package com.arziman_off.moviesapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     @SerializedName("id")
     private int id;
 
@@ -20,7 +22,6 @@ public class Movie {
     private int ageRating;
 
     @SerializedName("poster")
-
     private Poster poster;
 
     @SerializedName("rating")

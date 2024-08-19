@@ -1,5 +1,6 @@
 package com.arziman_off.moviesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReachEnd() {
                 viewModel.loadMovies();
+            }
+        });
+        moviesAdapter.setOnMovieItemClickListener(new MoviesAdapter.OnMovieItemClickListener() {
+            @Override
+            public void onMovieClick(Movie movie) {
+                Intent intent = MovieDetailActivity.newIntent(
+                        MainActivity.this,
+                        movie
+                        );
+                startActivity(intent);
             }
         });
         viewModel.getIsNowLoading().observe(this, new Observer<Boolean>() {

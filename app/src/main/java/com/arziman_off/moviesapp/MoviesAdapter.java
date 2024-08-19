@@ -1,10 +1,8 @@
 package com.arziman_off.moviesapp;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,9 +19,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     private List<Movie> movies = new ArrayList<>();
     private OnReachEndListener onReachEndListener;
+    private OnMovieItemClickListener onMovieItemClickListener;
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
+    }
+
+    public void setOnMovieItemClickListener(OnMovieItemClickListener onMovieItemClickListener) {
+        this.onMovieItemClickListener = onMovieItemClickListener;
     }
 
     public void setMovies(List<Movie> movies) {
@@ -70,6 +73,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
         holder.ageRatingBox.setText(movie.getAgeRating() + "+");
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onMovieItemClickListener != null){
+                    onMovieItemClickListener.onMovieClick(movie);
+                }
+            }
+        });
+
         // если адаптер обратился к последнему элементу списка,
         // значет пользователь проскроллил до конца доступного списка
         if (position >= movies.size() - 6 && onReachEndListener != null){
@@ -103,6 +115,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     interface OnReachEndListener{
         void onReachEnd();
+    }
+
+    interface OnMovieItemClickListener{
+        void onMovieClick(Movie movie);
     }
     static class MovieViewHolder extends RecyclerView.ViewHolder {
 

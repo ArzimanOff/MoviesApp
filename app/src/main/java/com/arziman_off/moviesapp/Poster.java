@@ -2,7 +2,9 @@ package com.arziman_off.moviesapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Poster {
+import java.io.Serializable;
+
+public class Poster implements Serializable {
 
     @SerializedName("url")
     private String url;

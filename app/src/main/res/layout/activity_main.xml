@@ -27,15 +27,6 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             >
 
-            <ImageView
-                android:id="@+id/goBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/go_back_icon"
-                android:contentDescription="Кнопка для возвращения на предыдущий экран"
-                android:layout_gravity="start"
-                android:visibility="gone"
-                tools:visibility="gone" />
 
             <ImageView
                 android:id="@+id/toolbarLogo"
