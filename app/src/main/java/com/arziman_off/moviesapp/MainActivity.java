@@ -1,10 +1,12 @@
 package com.arziman_off.moviesapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getIsNowLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isNowLoading) {
-                if (isNowLoading){
+                if (isNowLoading && moviesAdapter.getItemCount() == 0){
                     loadingProgressBarBox.setVisibility(View.VISIBLE);
                     recyclerViewMovies.setVisibility(View.GONE);
                 } else {
@@ -89,5 +91,30 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         loadingProgressBarBox = findViewById(R.id.loadingProgressBarBox);
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+    }
+
+    public static void setStyles(TextView textView, String ratingValue) {
+        if (Double.parseDouble(ratingValue) >= 7){
+            textView.setBackgroundResource(R.drawable.rating_box_bg_high);
+            textView.setTextColor(
+                    textView.getContext()
+                            .getResources()
+                            .getColor(R.color.high_rating_color)
+            );
+        } else if (Double.parseDouble(ratingValue) >= 5){
+            textView.setBackgroundResource(R.drawable.rating_box_bg_medium);
+            textView.setTextColor(
+                    textView.getContext()
+                            .getResources()
+                            .getColor(R.color.medium_rating_color)
+            );
+        } else {
+            textView.setBackgroundResource(R.drawable.rating_box_bg_low);
+            textView.setTextColor(
+                    textView.getContext()
+                            .getResources()
+                            .getColor(R.color.low_rating_color)
+            );
+        }
     }
 }

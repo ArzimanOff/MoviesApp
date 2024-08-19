@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MoviesApp</string>
+    <string name="goBackBtnDescription">Кнопка для возвращения на предыдущий экран</string>
+    <string name="toolBarTitleText">MoviesApp</string>
+    <string name="favoritesListBtnDescription">Список отложенных фильмов</string>
+    <string name="yearTitleText">Год производства:</string>
+    <string name="movieNameTitleText">Название:</string>
+    <string name="movieDescriptionTitleText">Описание фильма:</string>
+    <string name="toolbarLogoDescription">Иконка приложения</string>
+    <string name="loadingPlaceholderText1">Загрузка…</string>
+    <string name="ageRatingPlaceholder">%1$s+</string>
+    <string name="loadingPlaceholderText2">Пожалуйста подождите!</string>
 </resources>

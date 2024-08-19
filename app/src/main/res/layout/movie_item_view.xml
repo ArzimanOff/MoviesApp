@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
-        android:background="@drawable/movie_card_bg"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +28,7 @@
                 android:paddingVertical="2dp"
                 android:textSize="12sp"
                 tools:background="@drawable/rating_box_bg_high"
-                app:drawableStartCompat="@drawable/kp_icon"
+                app:drawableStartCompat="@drawable/kp_small_icon"
                 android:drawablePadding="2dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="center"
@@ -44,7 +43,7 @@
                 android:text=""
                 android:textSize="12sp"
                 tools:background="@drawable/rating_box_bg_high"
-                app:drawableStartCompat="@drawable/imdb_icon"
+                app:drawableStartCompat="@drawable/imdb_small_icon"
                 android:drawablePadding="2dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="center"
@@ -81,9 +80,10 @@
             android:id="@+id/movie_name"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="1+1"
+            android:text=""
+            tools:text="1+1"
             android:textSize="18sp"
-            android:textColor="#631394"
+            android:textColor="@color/accent_color"
             android:textStyle="bold"
             android:gravity="center"
             />

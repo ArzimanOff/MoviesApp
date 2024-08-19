@@ -14,9 +14,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        >
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@null"
-                android:contentDescription="Иконка приложения"
+                android:contentDescription="@string/toolbarLogoDescription"
                 android:layout_gravity="start"
                 android:padding="8dp"
                 android:visibility="visible"
@@ -41,11 +39,11 @@
                 />
 
             <TextView
-                android:id="@+id/toolbar_title"
+                android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MoviesApp"
-                android:textColor="#9B4DCB"
+                android:text="@string/toolBarTitleText"
+                android:textColor="@color/accent_color"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium" />
@@ -55,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/liked_list_icon"
-                android:contentDescription="Список отложенных фильмов"
+                android:contentDescription="@string/favoritesListBtnDescription"
                 android:layout_gravity="end"
                 android:padding="8dp"
                 />
@@ -75,14 +73,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Загрузка..."
+            android:text="@string/loadingPlaceholderText1"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/accent_color"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -97,9 +95,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Пожалуйста подождите!"
+            android:text="@string/loadingPlaceholderText2"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/accent_color"
             android:textSize="24sp"
             android:textStyle="normal" />
     </LinearLayout>
@@ -112,7 +110,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        tools:listitem="@layout/movie_item_view"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:spanCount="2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

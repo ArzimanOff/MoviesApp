@@ -1,11 +1,12 @@
 package com.arziman_off.moviesapp;
 
+import static com.arziman_off.moviesapp.MainActivity.setStyles;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView yearText;
     private TextView nameText;
     private TextView descriptionText;
+    private TextView ageRatingBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,20 @@ public class MovieDetailActivity extends AppCompatActivity {
         initViews();
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
+        assert movie != null;
         Glide.with(this)
                 .load(movie.getPoster().getUrl())
                 .into(movieDetailsPoster);
         kpRating.setText(movie.getRating().getKp());
+        setStyles(kpRating, movie.getRating().getKp());
         imdbRating.setText(movie.getRating().getImdb());
+        setStyles(imdbRating, movie.getRating().getImdb());
+        ageRatingBox.setText(
+                getString(
+                        R.string.ageRatingPlaceholder,
+                        String.valueOf(movie.getAgeRating())
+                )
+        );
         yearText.setText(String.valueOf(movie.getYear()));
         nameText.setText(movie.getName());
         descriptionText.setText(movie.getDescription());
@@ -54,6 +65,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initViews(){
         goBackBtn = findViewById(R.id.goBackBtn);
         movieDetailsPoster = findViewById(R.id.movie_details_poster);
@@ -62,6 +74,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         yearText = findViewById(R.id.year_text);
         nameText = findViewById(R.id.name_text);
         descriptionText = findViewById(R.id.description_text);
+        ageRatingBox = findViewById(R.id.age_rating_box);
     }
 
     public static Intent newIntent(Context context, Movie movie){

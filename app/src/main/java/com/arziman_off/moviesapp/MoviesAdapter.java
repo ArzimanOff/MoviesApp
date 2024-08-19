@@ -1,5 +1,7 @@
 package com.arziman_off.moviesapp;
 
+import static com.arziman_off.moviesapp.MainActivity.setStyles;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +63,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         roundRating(kpRatingValue, 2)
                 )
         );
-        setBg(holder.kpRatingText, movie.getRating().getKp());
+        setStyles(holder.kpRatingText, movie.getRating().getKp());
 
         double imdbRatingValue = Double.parseDouble(movie.getRating().getImdb());
         holder.imdbRatingText.setText(
@@ -69,9 +71,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         roundRating(imdbRatingValue, 2)
                 )
         );
-        setBg(holder.imdbRatingText, movie.getRating().getImdb());
+        setStyles(holder.imdbRatingText, movie.getRating().getImdb());
 
-        holder.ageRatingBox.setText(movie.getAgeRating() + "+");
+        holder.ageRatingBox.setText(
+                holder.itemView
+                        .getContext()
+                        .getString(
+                                R.string.ageRatingPlaceholder,
+                                String.valueOf(movie.getAgeRating())
+                        )
+        );
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +99,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
     }
 
-    private void setBg(TextView textView, String ratingValue) {
-        if (Double.parseDouble(ratingValue) >= 7){
-            textView.setBackgroundResource(R.drawable.rating_box_bg_high);
-        } else if (Double.parseDouble(ratingValue) >= 5){
-            textView.setBackgroundResource(R.drawable.rating_box_bg_medium);
-        } else {
-            textView.setBackgroundResource(R.drawable.rating_box_bg_low);
-        }
-    }
 
     public static double roundRating(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
