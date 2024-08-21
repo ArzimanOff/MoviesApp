@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainViewModel extends AndroidViewModel {
@@ -53,16 +54,22 @@ public class MainViewModel extends AndroidViewModel {
                         isNowLoading.setValue(false);
                     }
                 })
+                .map(new Function<MovieResponse, List<Movie>>() {
+                    @Override
+                    public List<Movie> apply(MovieResponse movieResponse) throws Throwable {
+                        return movieResponse.getMovies();
+                    }
+                })
                 .subscribe(
-                        new Consumer<MovieResponse>() {
+                        new Consumer<List<Movie>>() {
                             @Override
-                            public void accept(MovieResponse movieResponse) throws Throwable {
+                            public void accept(List<Movie> moviesList) throws Throwable {
                                 List<Movie> loadedMovies = movies.getValue();
                                 if (loadedMovies != null){
-                                    loadedMovies.addAll(movieResponse.getMovies());
+                                    loadedMovies.addAll(moviesList);
                                     movies.setValue(loadedMovies);
                                 } else {
-                                    movies.setValue(movieResponse.getMovies());
+                                    movies.setValue(moviesList);
                                 }
                                 Log.d(LOG_TAG,"loaded: "+ page);
                                 page++;

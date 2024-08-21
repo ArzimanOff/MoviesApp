@@ -5,6 +5,7 @@ import static com.arziman_off.moviesapp.MainActivity.setStyles;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,12 +15,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MovieDetailActivity extends AppCompatActivity {
+    private final String LOG_TAG = "MovieDetailActivity";
     private static final String EXTRA_MOVIE = "movie";
+
+    private MovieDetailViewModel viewModel;
+
     private ShapeableImageView movieDetailsPoster;
     private ImageView goBackBtn;
     private TextView kpRating;
@@ -38,6 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
@@ -62,6 +76,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        viewModel.loadMovieTrailers(movie.getId());
+        viewModel.getMovieTrailers().observe(this, new Observer<List<MovieTrailer>>() {
+            @Override
+            public void onChanged(List<MovieTrailer> movieTrailers) {
+                Log.d(LOG_TAG, movieTrailers.toString());
             }
         });
     }

@@ -12,7 +12,6 @@ public class Movie implements Serializable {
     private String name;
 
     @SerializedName("description")
-
     private String description;
 
     @SerializedName("year")
