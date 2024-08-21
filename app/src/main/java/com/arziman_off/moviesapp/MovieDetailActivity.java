@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -32,7 +33,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     private static final String EXTRA_MOVIE = "movie";
 
     private MovieDetailViewModel viewModel;
-
     private ShapeableImageView movieDetailsPoster;
     private ImageView goBackBtn;
     private TextView kpRating;
@@ -41,6 +41,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView nameText;
     private TextView descriptionText;
     private TextView ageRatingBox;
+    private TextView trailersBoxPlaceholder;
+    private RecyclerView recyclerViewTrailers;
+    private TrailersAdapter trailersAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
+        trailersAdapter = new TrailersAdapter();
+        recyclerViewTrailers.setAdapter(trailersAdapter);
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
         assert movie != null;
@@ -83,6 +88,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieTrailer> movieTrailers) {
                 Log.d(LOG_TAG, movieTrailers.toString());
+                trailersBoxPlaceholder.setVisibility(View.GONE);
+                recyclerViewTrailers.setVisibility(View.VISIBLE);
+                trailersAdapter.setTrailers(movieTrailers);
             }
         });
     }
@@ -96,6 +104,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         nameText = findViewById(R.id.name_text);
         descriptionText = findViewById(R.id.description_text);
         ageRatingBox = findViewById(R.id.age_rating_box);
+        recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
+        trailersBoxPlaceholder = findViewById(R.id.trailersBoxPlaceholder);
     }
 
     public static Intent newIntent(Context context, Movie movie){
