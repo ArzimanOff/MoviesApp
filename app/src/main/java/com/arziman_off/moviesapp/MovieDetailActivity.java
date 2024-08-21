@@ -4,6 +4,7 @@ import static com.arziman_off.moviesapp.MainActivity.setStyles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -91,6 +92,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                 trailersBoxPlaceholder.setVisibility(View.GONE);
                 recyclerViewTrailers.setVisibility(View.VISIBLE);
                 trailersAdapter.setTrailers(movieTrailers);
+            }
+        });
+        trailersAdapter.setOnTrailerClickListener(new TrailersAdapter.OnTrailerClickListener() {
+            @Override
+            public void onTrailerClick(MovieTrailer trailer) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(trailer.getUrl()));
+                startActivity(intent);
             }
         });
     }
