@@ -44,6 +44,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView descriptionText;
     private TextView ageRatingBox;
     private TextView trailersBoxPlaceholder;
+    private TextView reviewsBoxPlaceholder;
     private RecyclerView recyclerViewTrailers;
     private TrailersAdapter trailersAdapter;
     private RecyclerView recyclerViewSmallReviews;
@@ -104,9 +105,11 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieTrailer> movieTrailers) {
                 Log.d(LOG_TAG, movieTrailers.toString());
-                trailersBoxPlaceholder.setVisibility(View.GONE);
-                recyclerViewTrailers.setVisibility(View.VISIBLE);
-                trailersAdapter.setTrailers(movieTrailers);
+                if (!movieTrailers.isEmpty()){
+                    trailersBoxPlaceholder.setVisibility(View.GONE);
+                    recyclerViewTrailers.setVisibility(View.VISIBLE);
+                    trailersAdapter.setTrailers(movieTrailers);
+                }
             }
         });
         trailersAdapter.setOnTrailerClickListener(new TrailersAdapter.OnTrailerClickListener() {
@@ -126,7 +129,11 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieReview> reviews) {
                 Log.d(LOG_TAG, reviews.toString());
-                smallReviewsAdapter.setSmallReviewsList(reviews);
+                if (!reviews.isEmpty()){
+                    reviewsBoxPlaceholder.setVisibility(View.GONE);
+                    recyclerViewSmallReviews.setVisibility(View.VISIBLE);
+                    smallReviewsAdapter.setSmallReviewsList(reviews);
+                }
             }
         });
     }
@@ -143,6 +150,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
         recyclerViewSmallReviews = findViewById(R.id.reviews_recycler_view);
         trailersBoxPlaceholder = findViewById(R.id.trailersBoxPlaceholder);
+        reviewsBoxPlaceholder = findViewById(R.id.reviewsBoxPlaceholder);
     }
 
     public static Intent newIntent(Context context, Movie movie){
