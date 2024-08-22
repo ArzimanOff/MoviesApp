@@ -1,6 +1,7 @@
 package com.arziman_off.moviesapp;
 
 import android.app.Application;
+import android.nfc.Tag;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MovieDetailViewModel extends AndroidViewModel {
     private final String LOG_TAG = "MovieDetailViewModel";
     private final MutableLiveData<List<MovieTrailer>> movieTrailers = new MutableLiveData<>();
+    private final MutableLiveData<List<MovieReview>> movieReviews = new MutableLiveData<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     public MovieDetailViewModel(@NonNull Application application) {
         super(application);
     }
@@ -29,7 +32,11 @@ public class MovieDetailViewModel extends AndroidViewModel {
         return movieTrailers;
     }
 
-    public void loadMovieTrailers(int filmId){
+    public LiveData<List<MovieReview>> getMovieReviews() {
+        return movieReviews;
+    }
+
+    public void loadMovieTrailers(int filmId) {
         Disposable disposable = ApiFactory.apiService
                 .loadTrailers(filmId)
                 .subscribeOn(Schedulers.io())
@@ -44,7 +51,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         new Consumer<TrailersList>() {
                             @Override
                             public void accept(TrailersList trailersList) throws Throwable {
-                                if (trailersList != null){
+                                if (trailersList != null) {
                                     movieTrailers.setValue(trailersList.getTrailers());
                                 }
                             }
@@ -58,6 +65,36 @@ public class MovieDetailViewModel extends AndroidViewModel {
                 );
         compositeDisposable.add(disposable);
     }
+
+    public void loadMovieReviews(int filmId) {
+        Disposable disposable = ApiFactory.apiService
+                .loadReviews(filmId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<MovieReviewResponse, List<MovieReview>>() {
+                    @Override
+                    public List<MovieReview> apply(MovieReviewResponse movieReviewResponse) throws Throwable {
+                        return movieReviewResponse.getReviews();
+                    }
+                })
+                .subscribe(
+                        new Consumer<List<MovieReview>>() {
+                            @Override
+                            public void accept(List<MovieReview> reviewsList) throws Throwable {
+                                movieReviews.setValue(reviewsList);
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                Log.d(LOG_TAG, throwable.toString());
+                            }
+                        }
+                );
+
+        compositeDisposable.add(disposable);
+    }
+
 
     @Override
     protected void onCleared() {

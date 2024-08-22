@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -55,13 +56,26 @@ public class MovieDetailActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
-        trailersAdapter = new TrailersAdapter();
-        recyclerViewTrailers.setAdapter(trailersAdapter);
-        Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
+        Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         assert movie != null;
+        setDetailsContent(movie);
+        showMovieTrailer(movie);
+        showMovieReviews(movie);
+
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    private void setDetailsContent(@NonNull Movie movie) {
         Glide.with(this)
                 .load(movie.getPoster().getUrl())
                 .into(movieDetailsPoster);
@@ -78,12 +92,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         yearText.setText(String.valueOf(movie.getYear()));
         nameText.setText(movie.getName());
         descriptionText.setText(movie.getDescription());
-        goBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    }
+    private void showMovieTrailer(@NonNull Movie movie) {
+        trailersAdapter = new TrailersAdapter();
+        recyclerViewTrailers.setAdapter(trailersAdapter);
+
         viewModel.loadMovieTrailers(movie.getId());
         viewModel.getMovieTrailers().observe(this, new Observer<List<MovieTrailer>>() {
             @Override
@@ -100,6 +113,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(trailer.getUrl()));
                 startActivity(intent);
+            }
+        });
+    }
+    private void showMovieReviews(@NonNull Movie movie) {
+        viewModel.loadMovieReviews(movie.getId());
+        viewModel.getMovieReviews().observe(this, new Observer<List<MovieReview>>() {
+            @Override
+            public void onChanged(List<MovieReview> reviews) {
+                Log.d(LOG_TAG, reviews.toString());
             }
         });
     }

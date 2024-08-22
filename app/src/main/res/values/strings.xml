@@ -10,4 +10,5 @@
     <string name="loadingPlaceholderText1">Загрузка…</string>
     <string name="ageRatingPlaceholder">%1$s+</string>
     <string name="loadingPlaceholderText2">Пожалуйста подождите!</string>
+    <string name="trailerNameText">Название трейлера</string>
 </resources>

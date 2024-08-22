@@ -12,7 +12,7 @@
         android:id="@+id/trailerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Название трейлера"
+        android:text="@string/trailerNameText"
         android:textStyle="normal"
         android:textColor="@color/accent_color"
         android:textSize="18sp"

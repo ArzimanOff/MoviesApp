@@ -1,5 +1,7 @@
 package com.arziman_off.moviesapp;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -64,6 +66,7 @@ public class Movie implements Serializable {
         return rating;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Movie{" +
