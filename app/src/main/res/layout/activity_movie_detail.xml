@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="9"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/movie_details_poster"

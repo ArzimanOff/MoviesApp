@@ -49,6 +49,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TrailersAdapter trailersAdapter;
     private RecyclerView recyclerViewSmallReviews;
     private ReviewsSmallAdapter smallReviewsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        
+
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
 
@@ -68,6 +69,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         setDetailsContent(movie);
         showMovieTrailer(movie);
         showMovieReviews(movie);
+
+        MovieDao movieDao = SavedMovieDatabase
+                .getInstance(getApplication())
+                .movieDao();
+        movieDao.saveMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
 
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +104,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         nameText.setText(movie.getName());
         descriptionText.setText(movie.getDescription());
     }
+
     private void showMovieTrailer(@NonNull Movie movie) {
         trailersAdapter = new TrailersAdapter();
         recyclerViewTrailers.setAdapter(trailersAdapter);
@@ -105,7 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieTrailer> movieTrailers) {
                 Log.d(LOG_TAG, movieTrailers.toString());
-                if (!movieTrailers.isEmpty()){
+                if (!movieTrailers.isEmpty()) {
                     trailersBoxPlaceholder.setVisibility(View.GONE);
                     recyclerViewTrailers.setVisibility(View.VISIBLE);
                     trailersAdapter.setTrailers(movieTrailers);
@@ -121,6 +130,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showMovieReviews(@NonNull Movie movie) {
         smallReviewsAdapter = new ReviewsSmallAdapter();
         recyclerViewSmallReviews.setAdapter(smallReviewsAdapter);
@@ -129,7 +139,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieReview> reviews) {
                 Log.d(LOG_TAG, reviews.toString());
-                if (!reviews.isEmpty()){
+                if (!reviews.isEmpty()) {
                     reviewsBoxPlaceholder.setVisibility(View.GONE);
                     recyclerViewSmallReviews.setVisibility(View.VISIBLE);
                     smallReviewsAdapter.setSmallReviewsList(reviews);
@@ -138,7 +148,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews(){
+    private void initViews() {
         goBackBtn = findViewById(R.id.goBackBtn);
         movieDetailsPoster = findViewById(R.id.movie_details_poster);
         kpRating = findViewById(R.id.movie_details_kp_rating);
@@ -153,7 +163,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         reviewsBoxPlaceholder = findViewById(R.id.reviewsBoxPlaceholder);
     }
 
-    public static Intent newIntent(Context context, Movie movie){
+    public static Intent newIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(EXTRA_MOVIE, movie);
         return intent;
