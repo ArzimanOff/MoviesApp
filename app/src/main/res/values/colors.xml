@@ -7,4 +7,5 @@
     <color name="low_rating_color">#FC472E</color>
     <color name="medium_rating_color">#ECC22C</color>
     <color name="high_rating_color">#289744</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

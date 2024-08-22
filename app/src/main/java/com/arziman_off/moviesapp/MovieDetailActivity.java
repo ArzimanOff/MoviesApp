@@ -46,6 +46,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView trailersBoxPlaceholder;
     private RecyclerView recyclerViewTrailers;
     private TrailersAdapter trailersAdapter;
+    private RecyclerView recyclerViewSmallReviews;
+    private ReviewsSmallAdapter smallReviewsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,11 +119,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
     private void showMovieReviews(@NonNull Movie movie) {
+        smallReviewsAdapter = new ReviewsSmallAdapter();
+        recyclerViewSmallReviews.setAdapter(smallReviewsAdapter);
         viewModel.loadMovieReviews(movie.getId());
         viewModel.getMovieReviews().observe(this, new Observer<List<MovieReview>>() {
             @Override
             public void onChanged(List<MovieReview> reviews) {
                 Log.d(LOG_TAG, reviews.toString());
+                smallReviewsAdapter.setSmallReviewsList(reviews);
             }
         });
     }
@@ -136,6 +141,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         descriptionText = findViewById(R.id.description_text);
         ageRatingBox = findViewById(R.id.age_rating_box);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
+        recyclerViewSmallReviews = findViewById(R.id.reviews_recycler_view);
         trailersBoxPlaceholder = findViewById(R.id.trailersBoxPlaceholder);
     }
 

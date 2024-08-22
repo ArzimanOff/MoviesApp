@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="#1A9B4DCB"
+    android:layout_marginEnd="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/review_author"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Author Name"
+                android:textStyle="normal"
+                android:textSize="12sp"
+                android:textColor="@color/translucent_accent_color"
+                />
+            <TextView
+                android:id="@+id/review_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="положительная"
+                android:textSize="12sp"
+                android:textColor="@color/high_rating_color"
+                android:background="@drawable/rating_box_bg_high"
+                android:paddingHorizontal="4dp"
+                android:paddingBottom="2dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/review_title"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Название рецензии"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/accent_color"
+            android:layout_marginBottom="4dp"
+            />
+        <TextView
+            android:id="@+id/review_text"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
+            android:text="Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="@color/accent_color"
+
+            android:ellipsize="end"
+            android:maxLines="10"
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

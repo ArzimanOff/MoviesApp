@@ -82,7 +82,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="9">
+                    android:weightSum="9"
+                    tools:visibility="gone">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/movie_details_poster"
@@ -307,8 +308,60 @@
                     tools:listitem="@layout/trailer_item_view"
                     tools:itemCount="4"
                     android:visibility="gone"
-                    tools:visibility="visible"
+                    tools:visibility="gone"
                     />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/reviewsBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                app:layout_constraintTop_toBottomOf="@id/trailersBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/reviewsBoxTitleBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="16dp"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/movie_details_bg"
+                    >
+                    <TextView
+                        android:id="@+id/reviewsBoxTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Рецензии:"
+                        android:textSize="12sp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/translucent_accent_color"
+                        />
+                    <TextView
+                        android:id="@+id/reviewsMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="смотреть все >"
+                        android:textSize="12sp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/translucent_accent_color"
+                        />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reviews_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="4dp"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    tools:listitem="@layout/review_small_item_view"
+                    />
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
