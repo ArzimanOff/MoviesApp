@@ -70,12 +70,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         showMovieTrailer(movie);
         showMovieReviews(movie);
 
-        MovieDao movieDao = SavedMovieDatabase
-                .getInstance(getApplication())
-                .movieDao();
-        movieDao.saveMovie(movie)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+//        MovieDao movieDao = SavedMovieDatabase
+//                .getInstance(getApplication())
+//                .movieDao();
+//        movieDao.saveMovie(movie)
+//                .subscribeOn(Schedulers.io())
+//                .subscribe();
 
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +118,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                     trailersBoxPlaceholder.setVisibility(View.GONE);
                     recyclerViewTrailers.setVisibility(View.VISIBLE);
                     trailersAdapter.setTrailers(movieTrailers);
+                } else {
+
                 }
             }
         });

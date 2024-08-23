@@ -59,7 +59,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Throwable {
-                                Log.d(LOG_TAG, throwable.toString());
+                                Log.d(LOG_TAG, "TrailersList:" +throwable.toString());
                             }
                         }
                 );
@@ -87,7 +87,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Throwable {
-                                Log.d(LOG_TAG, throwable.toString());
+                                Log.d(LOG_TAG, "MovieReview:" + throwable.toString());
                             }
                         }
                 );
