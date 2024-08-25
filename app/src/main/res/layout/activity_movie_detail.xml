@@ -70,8 +70,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="64dp">
             <LinearLayout
                 android:id="@+id/movieMainDetails"
                 android:layout_width="match_parent"
@@ -268,7 +269,6 @@
                         tools:text="Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений" />
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/trailersBox"
                 android:layout_width="match_parent"
@@ -319,7 +319,6 @@
                     tools:listitem="@layout/trailer_item_view"
                     tools:visibility="gone" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/reviewsBox"
                 android:layout_width="match_parent"
@@ -397,6 +396,17 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <ImageButton
+        android:id="@+id/likeThisMovieBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/like_btn_bg"
+        tools:src="@drawable/active_like_icon"
+        android:contentDescription="save film btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

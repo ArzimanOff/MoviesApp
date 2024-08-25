@@ -6,7 +6,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-
 public interface ApiService {
     String TOKEN = "S2KXNRX-NEW4DBH-MJKS18F-W58DB7W";
 

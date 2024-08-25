@@ -4,16 +4,19 @@ import static com.arziman_off.moviesapp.MainActivity.setStyles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -48,6 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTrailers;
     private TrailersAdapter trailersAdapter;
     private RecyclerView recyclerViewSmallReviews;
+    private ImageButton likeThisMovieBtn;
     private ReviewsSmallAdapter smallReviewsAdapter;
 
     @Override
@@ -69,13 +73,24 @@ public class MovieDetailActivity extends AppCompatActivity {
         setDetailsContent(movie);
         showMovieTrailer(movie);
         showMovieReviews(movie);
-
-//        MovieDao movieDao = SavedMovieDatabase
-//                .getInstance(getApplication())
-//                .movieDao();
-//        movieDao.saveMovie(movie)
-//                .subscribeOn(Schedulers.io())
-//                .subscribe();
+        Drawable likeOn = ContextCompat.getDrawable(MovieDetailActivity.this, R.drawable.active_like_icon);
+        Drawable likeOff = ContextCompat.getDrawable(MovieDetailActivity.this, R.drawable.inactive_like_icon);
+        viewModel.getSavedMovie(movie.getId()).observe(this, new Observer<Movie>() {
+            @Override
+            public void onChanged(Movie movieFromDB) {
+                if (movieFromDB == null){
+                    likeThisMovieBtn.setImageDrawable(likeOff);
+                } else {
+                    likeThisMovieBtn.setImageDrawable(likeOn);
+                }
+            }
+        });
+        MovieDao movieDao = SavedMovieDatabase
+                .getInstance(getApplication())
+                .movieDao();
+        movieDao.saveMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
 
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +178,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         recyclerViewSmallReviews = findViewById(R.id.reviews_recycler_view);
         trailersBoxPlaceholder = findViewById(R.id.trailersBoxPlaceholder);
         reviewsBoxPlaceholder = findViewById(R.id.reviewsBoxPlaceholder);
+        likeThisMovieBtn = findViewById(R.id.likeThisMovieBtn);
     }
 
     public static Intent newIntent(Context context, Movie movie) {
