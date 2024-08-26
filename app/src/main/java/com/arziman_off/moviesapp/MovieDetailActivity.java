@@ -80,17 +80,23 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onChanged(Movie movieFromDB) {
                 if (movieFromDB == null){
                     likeThisMovieBtn.setImageDrawable(likeOff);
+                    likeThisMovieBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewModel.insertMovieIntoSavedList(movie);
+                        }
+                    });
                 } else {
                     likeThisMovieBtn.setImageDrawable(likeOn);
+                    likeThisMovieBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewModel.removeMovieFromSavedList(movie.getId());
+                        }
+                    });
                 }
             }
         });
-        MovieDao movieDao = SavedMovieDatabase
-                .getInstance(getApplication())
-                .movieDao();
-        movieDao.saveMovie(movie)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
 
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,6 +14,7 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -31,6 +32,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         movieDao = SavedMovieDatabase.getInstance(application).movieDao();
     }
 
+
     public LiveData<Movie> getSavedMovie(int movieId){
         return movieDao.getSavedMovie(movieId);
     }
@@ -41,6 +43,46 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
     public LiveData<List<MovieReview>> getMovieReviews() {
         return movieReviews;
+    }
+
+    public void insertMovieIntoSavedList(Movie movie){
+        Disposable disposable = movieDao.saveMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        new Action() {
+                            @Override
+                            public void run() throws Throwable {
+                                //TODO показать Toast о том что фильм сохранён в список
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                //TODO показать Toast о том что фильм НЕ сохранён в список (ОШИБКА!)
+                            }
+                        }
+                );
+        compositeDisposable.add(disposable);
+    }
+
+    public void removeMovieFromSavedList(int movieId){
+        Disposable disposable = movieDao.removeMovie(movieId)
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        new Action() {
+                            @Override
+                            public void run() throws Throwable {
+                                //TODO показать Toast о том что фильм был удалён
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                //TODO показать Toast о том что фильм НЕ удалился (ОШИБКА!)
+                            }
+                        }
+                );
+        compositeDisposable.add(disposable);
     }
 
     public void loadMovieTrailers(int filmId) {
