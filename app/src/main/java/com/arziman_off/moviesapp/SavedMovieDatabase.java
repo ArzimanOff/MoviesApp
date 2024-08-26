@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class, SavedMovieTimestamp.class}, version = 2, exportSchema = false)
 public abstract class SavedMovieDatabase extends RoomDatabase {
     private static final String DB_NAME = "saved_movie.db";
     private static SavedMovieDatabase instance = null;

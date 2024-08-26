@@ -11,4 +11,10 @@
     <string name="ageRatingPlaceholder">%1$s+</string>
     <string name="loadingPlaceholderText2">Пожалуйста подождите!</string>
     <string name="trailerNameText">Название трейлера</string>
+    <string name="trailersBoxTitleText">Трэйлеры:</string>
+    <string name="trailersBoxPlaceholderText">Мы не нашли доступных трейлеров :(</string>
+    <string name="reviewsMoreText">подробнее</string>
+    <string name="reviewsBoxTitleText">Рецензии:</string>
+    <string name="reviewsBoxPlaceholderText">Мы не нашли рецензий :(</string>
+    <string name="likeThisMovieBtnText">save film btn</string>
 </resources>

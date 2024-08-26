@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="top">
             <TextView
                 android:id="@+id/review_author"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Author Name"
+                android:text=""
                 android:textStyle="normal"
                 android:textSize="12sp"
                 android:textColor="@color/translucent_accent_color"
@@ -33,7 +33,7 @@
                 android:id="@+id/review_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="положительная"
+                android:text=""
                 android:textSize="12sp"
                 android:textColor="@color/high_rating_color"
                 android:background="@drawable/rating_box_bg_high"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Название рецензии"
+            android:text=""
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/accent_color"
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
 
-            android:text="Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии Текст рецензии  Текст рецензии Текст рецензии Текст рецензии"
+            android:text=""
             android:textStyle="normal"
             android:textSize="14sp"
             android:textColor="@color/accent_color"

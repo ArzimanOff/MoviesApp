@@ -46,7 +46,10 @@ public class MovieDetailViewModel extends AndroidViewModel {
     }
 
     public void insertMovieIntoSavedList(Movie movie){
+        long currentTime = System.currentTimeMillis();
+        SavedMovieTimestamp movieTimestamp = new SavedMovieTimestamp(movie.getId(), currentTime);
         Disposable disposable = movieDao.saveMovie(movie)
+                .andThen(movieDao.saveMovieTimestamp(movieTimestamp))
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         new Action() {
@@ -67,6 +70,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
     public void removeMovieFromSavedList(int movieId){
         Disposable disposable = movieDao.removeMovie(movieId)
+                .andThen(movieDao.removeMovieTimestamp(movieId))
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         new Action() {
