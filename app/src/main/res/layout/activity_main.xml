@@ -49,7 +49,7 @@
                 android:fontFamily="sans-serif-medium" />
 
             <ImageView
-                android:id="@+id/favorites_list_btn"
+                android:id="@+id/openSavedListBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/liked_list_icon"

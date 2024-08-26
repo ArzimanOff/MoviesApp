@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,9 +28,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = "MainActivity";
     private MainViewModel viewModel;
-    private RecyclerView recyclerViewMovies;
     private LinearLayout loadingProgressBarBox;
+    private RecyclerView recyclerViewMovies;
     private MoviesAdapter moviesAdapter;
+    private ImageView openSavedListBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +73,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = MovieDetailActivity.newIntent(
                         MainActivity.this,
                         movie
-                        );
+                );
                 startActivity(intent);
             }
         });
         viewModel.getIsNowLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isNowLoading) {
-                if (isNowLoading && moviesAdapter.getItemCount() == 0){
+                if (isNowLoading && moviesAdapter.getItemCount() == 0) {
                     loadingProgressBarBox.setVisibility(View.VISIBLE);
                     recyclerViewMovies.setVisibility(View.GONE);
                 } else {
@@ -91,17 +94,27 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         loadingProgressBarBox = findViewById(R.id.loadingProgressBarBox);
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        openSavedListBtn = findViewById(R.id.openSavedListBtn);
+        openSavedListBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = SavedMoviesActivity.newIntent(v.getContext());
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
     public static void setStyles(TextView textView, String ratingValue) {
-        if (Double.parseDouble(ratingValue) >= 7){
+        if (Double.parseDouble(ratingValue) >= 7) {
             textView.setBackgroundResource(R.drawable.rating_box_bg_high);
             textView.setTextColor(
                     textView.getContext()
                             .getResources()
                             .getColor(R.color.high_rating_color)
             );
-        } else if (Double.parseDouble(ratingValue) >= 5){
+        } else if (Double.parseDouble(ratingValue) >= 5) {
             textView.setBackgroundResource(R.drawable.rating_box_bg_medium);
             textView.setTextColor(
                     textView.getContext()

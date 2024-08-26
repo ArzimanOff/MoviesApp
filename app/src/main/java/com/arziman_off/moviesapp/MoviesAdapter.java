@@ -50,7 +50,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        // Log.d("MoviesAdapter", "onBindViewHolder: " + position);
         Movie movie = movies.get(position);
         Glide.with(holder.itemView)
                 .load(movie.getPoster().getUrl())
@@ -82,7 +81,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                         )
         );
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +90,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             }
         });
 
-        // если адаптер обратился к последнему элементу списка,
+        // если адаптер обратился к последним элементам списка (к шестому с конца или меньше),
         // значет пользователь проскроллил до конца доступного списка
         if (position >= movies.size() - 6 && onReachEndListener != null){
             onReachEndListener.onReachEnd();
