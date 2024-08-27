@@ -169,6 +169,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                 }
             }
         });
+        smallReviewsAdapter.setOnReviewItemClickListener(new ReviewsSmallAdapter.OnReviewItemClickListener() {
+            @Override
+            public void onReviewClick(MovieReview movieReview) {
+                ReviewDetailBottomSheet reviewDetailBottomSheet = ReviewDetailBottomSheet.newInstance(movieReview);
+                reviewDetailBottomSheet.show(getSupportFragmentManager(), "reviewAllDetails");
+            }
+        });
     }
 
     private void initViews() {

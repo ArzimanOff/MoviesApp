@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MovieReview {
+import java.io.Serializable;
+
+
+public class MovieReview implements Serializable {
     @SerializedName("id")
     private int id;
 

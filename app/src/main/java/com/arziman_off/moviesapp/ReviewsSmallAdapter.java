@@ -15,9 +15,15 @@ import java.util.List;
 public class ReviewsSmallAdapter extends RecyclerView.Adapter<ReviewsSmallAdapter.ReviewsSmallViewHolder> {
     private List<MovieReview> smallReviewsList = new ArrayList<>();
 
+    private OnReviewItemClickListener onReviewItemClickListener;
+
     public void setSmallReviewsList(List<MovieReview> smallReviewsList) {
         this.smallReviewsList = smallReviewsList;
         notifyDataSetChanged();
+    }
+
+    public void setOnReviewItemClickListener(OnReviewItemClickListener onReviewItemClickListener) {
+        this.onReviewItemClickListener = onReviewItemClickListener;
     }
 
     @NonNull
@@ -52,6 +58,14 @@ public class ReviewsSmallAdapter extends RecyclerView.Adapter<ReviewsSmallAdapte
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         layoutParams.width = itemWidth;
         holder.itemView.setLayoutParams(layoutParams);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onReviewItemClickListener != null){
+                    onReviewItemClickListener.onReviewClick(review);
+                }
+            }
+        });
     }
 
     private void setReviewTypeStyles(TextView reviewType) {
@@ -83,6 +97,10 @@ public class ReviewsSmallAdapter extends RecyclerView.Adapter<ReviewsSmallAdapte
     @Override
     public int getItemCount() {
         return smallReviewsList.size();
+    }
+
+    interface OnReviewItemClickListener{
+        void onReviewClick(MovieReview movieReview);
     }
 
     static class ReviewsSmallViewHolder extends RecyclerView.ViewHolder {
