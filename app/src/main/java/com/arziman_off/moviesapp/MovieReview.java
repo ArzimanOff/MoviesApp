@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class MovieReview implements Serializable {
@@ -38,7 +40,10 @@ public class MovieReview implements Serializable {
     @SerializedName("reviewDislikes")
     private int reviewDislikes;
 
-    public MovieReview(int id, int movieId, int authorId, String title, String type, String text, String author, int reviewLikes, int reviewDislikes) {
+    @SerializedName("date")
+    private String date;
+
+    public MovieReview(int id, int movieId, int authorId, String title, String type, String text, String author, int reviewLikes, int reviewDislikes, String date) {
         this.id = id;
         this.movieId = movieId;
         this.authorId = authorId;
@@ -48,6 +53,7 @@ public class MovieReview implements Serializable {
         this.author = author;
         this.reviewLikes = reviewLikes;
         this.reviewDislikes = reviewDislikes;
+        this.date = date;
     }
 
     public int getId() {
@@ -86,6 +92,10 @@ public class MovieReview implements Serializable {
         return authorId;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return "MovieReview{" +
@@ -98,6 +108,7 @@ public class MovieReview implements Serializable {
                 ", author='" + author + '\'' +
                 ", reviewLikes=" + reviewLikes +
                 ", reviewDislikes=" + reviewDislikes +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

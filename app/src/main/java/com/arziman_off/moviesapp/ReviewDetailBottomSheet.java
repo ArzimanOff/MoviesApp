@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
     private static final String ARG_REVIEW = "movieReview";
 
@@ -51,12 +54,53 @@ public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
         TextView reviewAuthor = view.findViewById(R.id.reviewAuthor);
         TextView reviewTitle = view.findViewById(R.id.reviewTitle);
         TextView reviewText = view.findViewById(R.id.reviewText);
+        TextView reviewDate = view.findViewById(R.id.reviewData);
+        TextView reviewType = view.findViewById(R.id.reviewType);
 
         if (review != null){
             reviewAuthor.setText(review.getAuthor());
             reviewTitle.setText(review.getTitle());
             reviewText.setText(review.getText());
+            reviewDate.setText(parseDate(review.getDate()));
+            reviewType.setText(review.getType() + " отзыв");
+            setStyles(reviewType, review.getType());
         }
         return view;
+    }
+
+    public void setStyles(TextView reviewType, String type){
+        if (type.equals("Позитивный")){
+            reviewType.setBackgroundResource(R.drawable.rating_box_bg_high);
+            reviewType.setTextColor(
+                    reviewType.getContext()
+                            .getResources()
+                            .getColor(R.color.high_rating_color)
+            );
+        } else if (type.equals("Нейтральный")) {
+            reviewType.setBackgroundResource(R.drawable.rating_box_bg_medium);
+            reviewType.setTextColor(
+                    reviewType.getContext()
+                            .getResources()
+                            .getColor(R.color.medium_rating_color)
+            );
+        } else if (type.equals("Негативный")) {
+            reviewType.setBackgroundResource(R.drawable.rating_box_bg_low);
+            reviewType.setTextColor(
+                    reviewType.getContext()
+                            .getResources()
+                            .getColor(R.color.low_rating_color)
+            );
+        }
+    }
+
+    public String parseDate(String dateString){
+        // Преобразование строки в объект ZonedDateTime
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString);
+
+        // Создание формата для нужного вывода
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        // Преобразование в строку с нужным форматом
+        return zonedDateTime.format(formatter);
     }
 }

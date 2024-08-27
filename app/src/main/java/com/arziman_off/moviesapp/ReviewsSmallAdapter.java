@@ -68,7 +68,7 @@ public class ReviewsSmallAdapter extends RecyclerView.Adapter<ReviewsSmallAdapte
         });
     }
 
-    private void setReviewTypeStyles(TextView reviewType) {
+    public static void setReviewTypeStyles(TextView reviewType) {
         String type = reviewType.getText().toString();
         if (type.equals("Позитивный")){
             reviewType.setBackgroundResource(R.drawable.rating_box_bg_high);

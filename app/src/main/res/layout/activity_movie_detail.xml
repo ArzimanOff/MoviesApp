@@ -363,7 +363,7 @@
                             android:textAlignment="textEnd"
                             android:textColor="@color/translucent_accent_color"
                             android:textSize="12sp"
-                            app:drawableEndCompat="@drawable/arrow_icon"
+                            app:drawableEndCompat="@drawable/arrow_icon_small"
                             android:drawablePadding="4dp"
                             />
                     </LinearLayout>
