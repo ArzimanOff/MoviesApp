@@ -72,7 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         assert movie != null;
         setDetailsContent(movie);
         showMovieTrailer(movie);
-        showMovieReviews(movie);
+        showSomeMovieReviews(movie);
         Drawable likeOn = ContextCompat.getDrawable(MovieDetailActivity.this, R.drawable.active_like_icon);
         Drawable likeOff = ContextCompat.getDrawable(MovieDetailActivity.this, R.drawable.inactive_like_icon);
         viewModel.getSavedMovie(movie.getId()).observe(this, new Observer<Movie>() {
@@ -143,7 +143,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     recyclerViewTrailers.setVisibility(View.VISIBLE);
                     trailersAdapter.setTrailers(movieTrailers);
                 } else {
-
+                    
                 }
             }
         });
@@ -157,10 +157,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void showMovieReviews(@NonNull Movie movie) {
+    private void showSomeMovieReviews(@NonNull Movie movie) {
         smallReviewsAdapter = new ReviewsSmallAdapter();
         recyclerViewSmallReviews.setAdapter(smallReviewsAdapter);
-        viewModel.loadMovieReviews(movie.getId());
+        viewModel.loadSomeMovieReviews(movie.getId());
         viewModel.getMovieReviews().observe(this, new Observer<List<MovieReview>>() {
             @Override
             public void onChanged(List<MovieReview> reviews) {

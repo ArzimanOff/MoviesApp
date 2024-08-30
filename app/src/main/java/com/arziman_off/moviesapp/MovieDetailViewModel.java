@@ -119,9 +119,9 @@ public class MovieDetailViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void loadMovieReviews(int filmId) {
+    public void loadSomeMovieReviews(int filmId) {
         Disposable disposable = ApiFactory.apiService
-                .loadReviews(filmId)
+                .loadSomeReviews(filmId, 5)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<MovieReviewResponse, List<MovieReview>>() {
@@ -134,6 +134,9 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         new Consumer<List<MovieReview>>() {
                             @Override
                             public void accept(List<MovieReview> reviewsList) throws Throwable {
+                                for (MovieReview r: reviewsList) {
+                                    Log.d("ReviewInfo", r.toString());
+                                }
                                 movieReviews.setValue(reviewsList);
                             }
                         },

@@ -60,6 +60,10 @@ public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
         TextView reviewText = view.findViewById(R.id.reviewText);
         TextView reviewDate = view.findViewById(R.id.reviewData);
         TextView reviewType = view.findViewById(R.id.reviewType);
+        TextView reviewGoodReaction = view.findViewById(R.id.reviewGoodReaction);
+        TextView reviewBadReaction = view.findViewById(R.id.reviewBadReaction);
+
+
         ImageView closeReviewWindowBtn = view.findViewById(R.id.closeReviewWindowBtn);
         LinearLayout reviewAuthorBox = view.findViewById(R.id.reviewAuthorBox);
         closeReviewWindowBtn.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +89,8 @@ public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
             reviewDate.setText(parseDate(review.getDate()));
             reviewType.setText(review.getType() + " отзыв");
             setStyles(reviewType, review.getType());
+            reviewGoodReaction.setText(String.valueOf(review.getReviewLikes()));
+            reviewBadReaction.setText(String.valueOf(review.getReviewDislikes()));
         }
         return view;
     }

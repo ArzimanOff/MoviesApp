@@ -18,9 +18,6 @@ public class MovieReview implements Serializable {
 
     @SerializedName("authorId")
     private int authorId;
-    // TODO: реализовать открытие профиля автора
-    //  через неявный интент в интернете по ссылке
-    //  https://www.kinopoisk.ru/user/{authorId}/
 
     @SerializedName("title")
     private String title;

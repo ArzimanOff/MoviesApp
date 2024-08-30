@@ -17,7 +17,13 @@ public interface ApiService {
     @Headers("X-API-KEY:" + TOKEN)
     Single<TrailerResponse> loadTrailers(@Path("movieId") int movieId);
 
-    @GET("review?limit=10")
+    @GET("review?")
     @Headers("X-API-KEY:" + TOKEN)
-    Single<MovieReviewResponse> loadReviews(@Query("movieId") int movieId);
+    Single<MovieReviewResponse> loadSomeReviews(@Query("movieId") int movieId,
+                                                @Query("limit") int limit);
+
+    @GET("review?")
+    @Headers("X-API-KEY:" + TOKEN)
+    Single<MovieReviewResponse> loadAllReviews(@Query("movieId") int movieId);
+
 }

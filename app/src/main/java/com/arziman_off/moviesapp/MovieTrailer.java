@@ -1,5 +1,7 @@
 package com.arziman_off.moviesapp;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 
@@ -23,6 +25,7 @@ public class MovieTrailer{
         return name;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MovieTrailer{" +

@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="160dp"
+            android:paddingBottom="220dp"
             >
 
             <TextView
@@ -152,4 +152,45 @@
                 />
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/reviewReactionsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/review_reactions_box_bg"
+        android:paddingHorizontal="8dp"
+        >
+
+        <TextView
+            android:id="@+id/reviewGoodReaction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:drawableStartCompat="@drawable/arrow_up"
+            android:text=""
+            tools:text="52"
+            android:textColor="@color/high_rating_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            />
+        <TextView
+            android:id="@+id/reviewBadReaction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:drawableStartCompat="@drawable/arrow_down"
+            android:text=""
+            tools:text="9"
+            android:textColor="@color/low_rating_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
