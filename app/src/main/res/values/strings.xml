@@ -17,4 +17,5 @@
     <string name="reviewsBoxTitleText">Рецензии:</string>
     <string name="reviewsBoxPlaceholderText">Мы не нашли рецензий :(</string>
     <string name="likeThisMovieBtnText">save film btn</string>
+    <string name="closeReviewWindowBtnDesc">close review window btn</string>
 </resources>

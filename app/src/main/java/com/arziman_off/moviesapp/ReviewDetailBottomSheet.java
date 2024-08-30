@@ -1,10 +1,14 @@
 package com.arziman_off.moviesapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,6 +60,23 @@ public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
         TextView reviewText = view.findViewById(R.id.reviewText);
         TextView reviewDate = view.findViewById(R.id.reviewData);
         TextView reviewType = view.findViewById(R.id.reviewType);
+        ImageView closeReviewWindowBtn = view.findViewById(R.id.closeReviewWindowBtn);
+        LinearLayout reviewAuthorBox = view.findViewById(R.id.reviewAuthorBox);
+        closeReviewWindowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        reviewAuthorBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.kinopoisk.ru/user/" + review.getAuthorId()));
+                startActivity(intent);
+            }
+        });
 
         if (review != null){
             reviewAuthor.setText(review.getAuthor());

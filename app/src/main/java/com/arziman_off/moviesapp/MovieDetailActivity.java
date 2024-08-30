@@ -123,6 +123,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         );
         yearText.setText(String.valueOf(movie.getYear()));
         nameText.setText(movie.getName());
+        if (movie.getName().length() >= 30){
+            nameText.setTextSize(16);
+        }
         descriptionText.setText(movie.getDescription());
     }
 

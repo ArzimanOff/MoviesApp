@@ -55,6 +55,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                 .load(movie.getPoster().getUrl())
                 .into(holder.imageViewMoviePoster);
         holder.movieName.setText(movie.getName());
+        if (movie.getName().trim().length() >= 30){
+            holder.movieName.setTextSize(14);
+        }
 
         double kpRatingValue = Double.parseDouble(movie.getRating().getKp());
         holder.kpRatingText.setText(
