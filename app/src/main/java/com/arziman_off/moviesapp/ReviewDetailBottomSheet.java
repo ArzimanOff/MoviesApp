@@ -120,7 +120,7 @@ public class ReviewDetailBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
-    public String parseDate(String dateString){
+    public static String parseDate(String dateString){
         // Преобразование строки в объект ZonedDateTime
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString);
 

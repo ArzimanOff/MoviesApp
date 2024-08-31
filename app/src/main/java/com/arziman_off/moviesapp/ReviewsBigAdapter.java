@@ -1,6 +1,7 @@
 package com.arziman_off.moviesapp;
 
-import android.util.DisplayMetrics;
+import static com.arziman_off.moviesapp.ReviewDetailBottomSheet.parseDate;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class ReviewsBigAdapter extends RecyclerView.Adapter<ReviewsBigAdapter.Re
         MovieReview review = bigReviewsList.get(position);
 
         holder.reviewAuthor.setText(review.getAuthor());
-        holder.reviewDate.setText(review.getDate());
+        holder.reviewDate.setText(parseDate(review.getDate()));
         holder.reviewTitle.setText(review.getTitle());
         holder.reviewText.setText(review.getText());
         holder.reviewType.setText(review.getType());

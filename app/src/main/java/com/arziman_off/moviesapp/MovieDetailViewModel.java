@@ -1,7 +1,6 @@
 package com.arziman_off.moviesapp;
 
 import android.app.Application;
-import android.nfc.Tag;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
