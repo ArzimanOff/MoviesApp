@@ -119,12 +119,39 @@ public class AllReviewsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (reviewAllTypesBtn.isChecked()) {
+                    if (allReviewsList.isEmpty()) {
+                        reviewsBoxPlaceholder.setText(R.string.reviewsBoxPlaceholderText);
+                    }
                     bigReviewsAdapter.setBigReviewsList(allReviewsList);
                 } else if (reviewHighTypesBtn.isChecked()) {
+                    if (highReviewsList.isEmpty()) {
+                        reviewsBoxPlaceholder.setText("Не нашли таких отзывов");
+                        reviewsBoxPlaceholder.setVisibility(View.VISIBLE);
+                        recyclerViewBigReviews.setVisibility(View.GONE);
+                    } else {
+                        reviewsBoxPlaceholder.setVisibility(View.GONE);
+                        recyclerViewBigReviews.setVisibility(View.VISIBLE);
+                    }
                     bigReviewsAdapter.setBigReviewsList(highReviewsList);
                 } else if (reviewMediumTypesBtn.isChecked()) {
+                    if (mediumReviewsList.isEmpty()) {
+                        reviewsBoxPlaceholder.setText("Не нашли таких отзывов");
+                        reviewsBoxPlaceholder.setVisibility(View.VISIBLE);
+                        recyclerViewBigReviews.setVisibility(View.GONE);
+                    } else {
+                        reviewsBoxPlaceholder.setVisibility(View.GONE);
+                        recyclerViewBigReviews.setVisibility(View.VISIBLE);
+                    }
                     bigReviewsAdapter.setBigReviewsList(mediumReviewsList);
                 } else {
+                    if (lowReviewsList.isEmpty()) {
+                        reviewsBoxPlaceholder.setText("Не нашли таких отзывов");
+                        reviewsBoxPlaceholder.setVisibility(View.VISIBLE);
+                        recyclerViewBigReviews.setVisibility(View.GONE);
+                    } else {
+                        reviewsBoxPlaceholder.setVisibility(View.GONE);
+                        recyclerViewBigReviews.setVisibility(View.VISIBLE);
+                    }
                     bigReviewsAdapter.setBigReviewsList(lowReviewsList);
                 }
                 updateStyleChooseReviewsTypesRadioGroup();
