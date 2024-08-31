@@ -43,6 +43,7 @@ public class ReviewsBigAdapter extends RecyclerView.Adapter<ReviewsBigAdapter.Re
         MovieReview review = bigReviewsList.get(position);
 
         holder.reviewAuthor.setText(review.getAuthor());
+        holder.reviewDate.setText(review.getDate());
         holder.reviewTitle.setText(review.getTitle());
         holder.reviewText.setText(review.getText());
         holder.reviewType.setText(review.getType());
@@ -95,12 +96,14 @@ public class ReviewsBigAdapter extends RecyclerView.Adapter<ReviewsBigAdapter.Re
 
     static class ReviewsBigViewHolder extends RecyclerView.ViewHolder {
         private final TextView reviewAuthor;
+        private final TextView reviewDate;
         private final TextView reviewType;
         private final TextView reviewTitle;
         private final TextView reviewText;
         public ReviewsBigViewHolder(@NonNull View itemView) {
             super(itemView);
             reviewAuthor = itemView.findViewById(R.id.review_author);
+            reviewDate = itemView.findViewById(R.id.review_date);
             reviewType = itemView.findViewById(R.id.review_type);
             reviewTitle = itemView.findViewById(R.id.review_title);
             reviewText = itemView.findViewById(R.id.review_text);

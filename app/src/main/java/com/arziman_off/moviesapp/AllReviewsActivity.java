@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -34,8 +35,11 @@ public class AllReviewsActivity extends AppCompatActivity {
     private RadioButton reviewHighTypesBtn;
     private RadioButton reviewMediumTypesBtn;
     private RadioButton reviewLowTypesBtn;
-
     private TextView reviewsBoxPlaceholder;
+
+    private ImageView goBackBtn;
+    private ImageView favoritesListBtn;
+    private TextView movieReviewsListTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,23 @@ public class AllReviewsActivity extends AppCompatActivity {
         initViews();
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         assert movie != null;
+        movieReviewsListTitle.setText("Рецензии на фильм: " + movie.getName());
         showAllMovieReviews(movie);
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        favoritesListBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = SavedMoviesActivity.newIntent(v.getContext());
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
     private void showAllMovieReviews(@NonNull Movie movie) {
@@ -69,6 +89,13 @@ public class AllReviewsActivity extends AppCompatActivity {
                 }
             }
         });
+        bigReviewsAdapter.setOnReviewItemClickListener(new ReviewsBigAdapter.OnReviewItemClickListener() {
+            @Override
+            public void onReviewClick(MovieReview movieReview) {
+                ReviewDetailBottomSheet reviewDetailBottomSheet = ReviewDetailBottomSheet.newInstance(movieReview);
+                reviewDetailBottomSheet.show(getSupportFragmentManager(), "reviewAllDetails");
+            }
+        });
     }
 
     private void initViews() {
@@ -79,9 +106,12 @@ public class AllReviewsActivity extends AppCompatActivity {
         reviewMediumTypesBtn = findViewById(R.id.reviewMediumTypesBtn);
         reviewLowTypesBtn = findViewById(R.id.reviewLowTypesBtn);
         reviewsBoxPlaceholder = findViewById(R.id.reviewsBoxPlaceholder);
+        goBackBtn = findViewById(R.id.goBackBtn);
+        favoritesListBtn = findViewById(R.id.favorites_list_btn);
+        movieReviewsListTitle = findViewById(R.id.movieReviewsListTitle);
     }
 
-    public static Intent newIntent(Context context, Movie movie){
+    public static Intent newIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, AllReviewsActivity.class);
         intent.putExtra(EXTRA_MOVIE, movie);
         return intent;

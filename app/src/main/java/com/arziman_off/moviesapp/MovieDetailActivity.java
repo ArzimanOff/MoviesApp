@@ -40,6 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieDetailViewModel viewModel;
     private ShapeableImageView movieDetailsPoster;
     private ImageView goBackBtn;
+    private ImageView favoritesListBtn;
     private TextView kpRating;
     private TextView imdbRating;
     private TextView yearText;
@@ -71,6 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         assert movie != null;
+
         setDetailsContent(movie);
         showMovieTrailer(movie);
         showSomeMovieReviews(movie);
@@ -79,7 +81,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getSavedMovie(movie.getId()).observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movieFromDB) {
-                if (movieFromDB == null){
+                if (movieFromDB == null) {
                     likeThisMovieBtn.setImageDrawable(likeOff);
                     likeThisMovieBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -106,6 +108,15 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
+        favoritesListBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = SavedMoviesActivity.newIntent(v.getContext());
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
     private void setDetailsContent(@NonNull Movie movie) {
@@ -124,7 +135,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         );
         yearText.setText(String.valueOf(movie.getYear()));
         nameText.setText(movie.getName());
-        if (movie.getName().length() >= 30){
+        if (movie.getName().length() >= 30) {
             nameText.setTextSize(16);
         }
         descriptionText.setText(movie.getDescription());
@@ -144,7 +155,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     recyclerViewTrailers.setVisibility(View.VISIBLE);
                     trailersAdapter.setTrailers(movieTrailers);
                 } else {
-                    
+
                 }
             }
         });
@@ -194,6 +205,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void initViews() {
         goBackBtn = findViewById(R.id.goBackBtn);
+        favoritesListBtn = findViewById(R.id.favorites_list_btn);
         movieDetailsPoster = findViewById(R.id.movie_details_poster);
         kpRating = findViewById(R.id.movie_details_kp_rating);
         imdbRating = findViewById(R.id.movie_details_imdb_rating);
