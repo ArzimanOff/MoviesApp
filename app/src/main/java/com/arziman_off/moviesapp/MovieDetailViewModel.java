@@ -32,8 +32,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         movieDao = SavedMovieDatabase.getInstance(application).movieDao();
     }
 
-
-    public LiveData<Movie> getSavedMovie(int movieId){
+    public LiveData<Movie> getSavedMovie(int movieId) {
         return movieDao.getSavedMovie(movieId);
     }
 
@@ -45,7 +44,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         return movieReviews;
     }
 
-    public void insertMovieIntoSavedList(Movie movie){
+    public void insertMovieIntoSavedList(Movie movie) {
         long currentTime = System.currentTimeMillis();
         SavedMovieTimestamp movieTimestamp = new SavedMovieTimestamp(movie.getId(), currentTime);
         Disposable disposable = movieDao.saveMovie(movie)
@@ -68,7 +67,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         compositeDisposable.add(disposable);
     }
 
-    public void removeMovieFromSavedList(int movieId){
+    public void removeMovieFromSavedList(int movieId) {
         Disposable disposable = movieDao.removeMovie(movieId)
                 .andThen(movieDao.removeMovieTimestamp(movieId))
                 .subscribeOn(Schedulers.io())
@@ -134,7 +133,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         new Consumer<List<MovieReview>>() {
                             @Override
                             public void accept(List<MovieReview> reviewsList) throws Throwable {
-                                for (MovieReview r: reviewsList) {
+                                for (MovieReview r : reviewsList) {
                                     Log.d("ReviewInfo", r.toString());
                                 }
                                 movieReviews.setValue(reviewsList);
@@ -147,10 +146,8 @@ public class MovieDetailViewModel extends AndroidViewModel {
                             }
                         }
                 );
-
         compositeDisposable.add(disposable);
     }
-
 
     @Override
     protected void onCleared() {

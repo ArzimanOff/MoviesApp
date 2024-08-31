@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="#1A9B4DCB"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="4dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top">
+            <TextView
+                android:id="@+id/review_author"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/accent_color"
+                tools:text="Имя автора"
+                />
+            <TextView
+                android:id="@+id/review_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12sp"
+                android:textColor="@color/high_rating_color"
+                android:background="@drawable/rating_box_bg_high"
+                android:paddingHorizontal="4dp"
+                android:paddingBottom="2dp"
+                tools:text="позитивный"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/review_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="@color/translucent_accent_color"
+            tools:text="Имя автора"
+            />
+        <TextView
+            android:id="@+id/review_title"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text=""
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/accent_color"
+            android:layout_marginBottom="4dp"
+            tools:text="Заголовок отзыва"
+            />
+        <TextView
+            android:id="@+id/review_text"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
+            android:text=""
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="@color/accent_color"
+
+            android:ellipsize="end"
+            android:maxLines="20"
+
+            tools:text="Когда в 2013 году вышел этот фильм, я не обратил на него особого внимания. Для меня он особо ничем не выделился, среди других фильмов, которые выходили в тот же период. Конечно, ведь на фоне рекламных кампаний студии Warner Bros., которая в том же году выпускала своего нового «Супермена» и «Тихоокеанский рубеж», работа Скорсезе просто потерялась, даже несмотря на звёздный каст актёров в данной картине. Поэтому до этого фильма я добрался аж в 2018 году. И дело даже не в том, что я этот фильм не заметил, а в том, что фильм изначально ещё в ходе рекламной кампании позиционировался не с той идеей, с которой он был задуман изначально.
+            Ведь если посмотреть любой трейлер, то складывается ощущение, что это не серьёзный фильм о дружбе и деньгах, в дешёвая американская комедия по типу «Мальчишника в Вегасе». И дело даже не в том, что я этот фильм не заметил, а в том, что фильм изначально"
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -36,7 +37,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MovieDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "MovieDetailActivity";
     private static final String EXTRA_MOVIE = "movie";
-
     private MovieDetailViewModel viewModel;
     private ShapeableImageView movieDetailsPoster;
     private ImageView goBackBtn;
@@ -53,6 +53,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerViewSmallReviews;
     private ImageButton likeThisMovieBtn;
     private ReviewsSmallAdapter smallReviewsAdapter;
+    private LinearLayout reviewsBoxLoadMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +180,16 @@ public class MovieDetailActivity extends AppCompatActivity {
                 reviewDetailBottomSheet.show(getSupportFragmentManager(), "reviewAllDetails");
             }
         });
+        reviewsBoxLoadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AllReviewsActivity.newIntent(
+                        MovieDetailActivity.this,
+                        movie
+                );
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
@@ -195,6 +206,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         trailersBoxPlaceholder = findViewById(R.id.trailersBoxPlaceholder);
         reviewsBoxPlaceholder = findViewById(R.id.reviewsBoxPlaceholder);
         likeThisMovieBtn = findViewById(R.id.likeThisMovieBtn);
+        reviewsBoxLoadMore = findViewById(R.id.reviewsBoxLoadMore);
     }
 
     public static Intent newIntent(Context context, Movie movie) {
