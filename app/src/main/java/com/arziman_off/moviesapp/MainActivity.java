@@ -1,10 +1,13 @@
 package com.arziman_off.moviesapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -132,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
                 moviesAdapter.setSearchMode(false);
                 moviesAdapter.setMovies(viewModel.getLoadedMovies().getValue());
                 search_edit_text.setText("");
+
+                // закрываем клавиатуру и убираем фокус с поля ввода
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 search_edit_text.clearFocus();
             }
         });
@@ -139,10 +146,16 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String userQuery = search_edit_text.getText().toString();
+//                if (userQuery.trim().length() <= 2)
                 moviesAdapter.setSearchMode(true);
-                viewModel.searchMovie(
-                        search_edit_text.getText().toString()
-                );
+
+                // закрываем клавиатуру и убираем фокус с поля ввода
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                search_edit_text.clearFocus();
+
+                viewModel.searchMovie(userQuery);
             }
         });
     }

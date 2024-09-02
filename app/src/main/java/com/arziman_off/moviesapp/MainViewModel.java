@@ -92,9 +92,9 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
-    public void searchMovie(String str){
+    public void searchMovie(String query){
         Disposable disposable = ApiFactory.apiService
-                .searchMovieByName(str)
+                .searchMovieByName(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
