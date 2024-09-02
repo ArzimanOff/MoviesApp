@@ -26,4 +26,7 @@ public interface ApiService {
     @Headers("X-API-KEY:" + TOKEN)
     Single<MovieReviewResponse> loadAllReviews(@Query("movieId") int movieId);
 
+    @GET("movie/search?page=1&limit=10")
+    @Headers("X-API-KEY:" + TOKEN)
+    Single<MovieResponse> searchMovieByName(@Query("query") String query);
 }

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -32,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout loadingProgressBarBox;
     private RecyclerView recyclerViewMovies;
     private MoviesAdapter moviesAdapter;
-    private ImageView openSavedListBtn;
+    private EditText search_edit_text;
+    private ImageView search_bar_cleaner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
         moviesAdapter = new MoviesAdapter();
         recyclerViewMovies.setAdapter(moviesAdapter);
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
-
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
+
+        viewModel.loadMovies();
+        viewModel.getLoadedMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
                 moviesAdapter.setMovies(movies);
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
         moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() {
             @Override
             public void onReachEnd() {
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         viewModel.getIsNowLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isNowLoading) {
@@ -90,12 +97,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        viewModel.getSearchedMoviesLiveData().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                moviesAdapter.setMovies(movies);
+                movies.forEach(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movie) {
+                        Log.d(LOG_TAG, movie.toString());
+                    }
+                });
+            }
+        });
     }
 
     private void initViews() {
         loadingProgressBarBox = findViewById(R.id.loadingProgressBarBox);
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
-        openSavedListBtn = findViewById(R.id.openSavedListBtn);
+        ImageView openSavedListBtn = findViewById(R.id.openSavedListBtn);
         openSavedListBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -105,6 +124,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        search_edit_text = findViewById(R.id.search_edit_text);
+        search_bar_cleaner = findViewById(R.id.search_bar_cleaner);
+        search_bar_cleaner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moviesAdapter.setSearchMode(false);
+                moviesAdapter.setMovies(viewModel.getLoadedMovies().getValue());
+                search_edit_text.setText("");
+                search_edit_text.clearFocus();
+            }
+        });
+        MaterialButton search_btn = findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moviesAdapter.setSearchMode(true);
+                viewModel.searchMovie(
+                        search_edit_text.getText().toString()
+                );
+            }
+        });
     }
 
     public static void setStyles(TextView textView, String ratingValue) {

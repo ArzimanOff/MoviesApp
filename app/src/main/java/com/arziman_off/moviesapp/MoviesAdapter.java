@@ -20,6 +20,12 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
     private List<Movie> movies = new ArrayList<>();
+    private Boolean isSearchMode = false;
+
+    public void setSearchMode(Boolean searchMode) {
+        isSearchMode = searchMode;
+    }
+
     private OnReachEndListener onReachEndListener;
     private OnMovieItemClickListener onMovieItemClickListener;
 
@@ -95,7 +101,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
         // если адаптер обратился к последним элементам списка (к шестому с конца или меньше),
         // значет пользователь проскроллил до конца доступного списка
-        if (position >= movies.size() - 6 && onReachEndListener != null){
+        if (!isSearchMode &&
+                position >= movies.size() - 6 &&
+                onReachEndListener != null ){
             onReachEndListener.onReachEnd();
         }
     }

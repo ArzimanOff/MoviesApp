@@ -101,12 +101,57 @@
             android:textSize="24sp"
             android:textStyle="normal" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/search_bar_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/search_btn"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/transparent"
+            android:hint="@string/search_edit_text_hint"
+            />
+        <ImageView
+            android:id="@+id/search_bar_cleaner"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/clear_search_bar"
+            android:visibility="visible"
+            android:contentDescription="@string/search_bar_cleaner_btn_text" />
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_btn"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:paddingVertical="4dp"
+        android:layout_marginEnd="16dp"
+        android:drawableTop="@drawable/search_icon"
+        app:layout_constraintBottom_toBottomOf="@id/search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_bar"
+        app:cornerRadius="8dp"
+        android:backgroundTint="#B39B4DCB"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMovies"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingHorizontal="8dp"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

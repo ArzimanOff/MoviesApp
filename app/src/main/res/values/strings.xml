@@ -18,4 +18,6 @@
     <string name="reviewsBoxPlaceholderText">Мы не нашли рецензий :(</string>
     <string name="likeThisMovieBtnText">save film btn</string>
     <string name="closeReviewWindowBtnDesc">close review window btn</string>
+    <string name="search_bar_cleaner_btn_text">search bar cleaner</string>
+    <string name="search_edit_text_hint">Поиск по названию</string>
 </resources>

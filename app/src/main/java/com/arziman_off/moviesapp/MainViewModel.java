@@ -20,17 +20,22 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainViewModel extends AndroidViewModel {
     private final String LOG_TAG = "MainViewModel";
-    private final MutableLiveData<List<Movie>> movies = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> loadedMoviesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> searchedMoviesLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isNowLoading = new MutableLiveData<>(false);
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private int page = 1;
     public MainViewModel(@NonNull Application application) {
         super(application);
-        loadMovies();
     }
-    public LiveData<List<Movie>> getMovies() {
-        return movies;
+    public LiveData<List<Movie>> getLoadedMovies() {
+        return loadedMoviesLiveData;
     }
+
+    public MutableLiveData<List<Movie>> getSearchedMoviesLiveData() {
+        return searchedMoviesLiveData;
+    }
+
     public LiveData<Boolean> getIsNowLoading() {
         return isNowLoading;
     }
@@ -64,15 +69,57 @@ public class MainViewModel extends AndroidViewModel {
                         new Consumer<List<Movie>>() {
                             @Override
                             public void accept(List<Movie> moviesList) throws Throwable {
-                                List<Movie> loadedMovies = movies.getValue();
+                                List<Movie> loadedMovies = loadedMoviesLiveData.getValue();
                                 if (loadedMovies != null){
                                     loadedMovies.addAll(moviesList);
-                                    movies.setValue(loadedMovies);
+                                    loadedMoviesLiveData.setValue(loadedMovies);
                                 } else {
-                                    movies.setValue(moviesList);
+                                    loadedMoviesLiveData.setValue(moviesList);
                                 }
                                 Log.d(LOG_TAG,"loaded: "+ page);
                                 page++;
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                Log.d(LOG_TAG, throwable.toString());
+                            }
+                        }
+                );
+
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void searchMovie(String str){
+        Disposable disposable = ApiFactory.apiService
+                .searchMovieByName(str)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Throwable {
+                        isNowLoading.setValue(true);
+                    }
+                })
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Throwable {
+                        isNowLoading.setValue(false);
+                    }
+                })
+                .map(new Function<MovieResponse, List<Movie>>() {
+                    @Override
+                    public List<Movie> apply(MovieResponse movieResponse) throws Throwable {
+                        return movieResponse.getMovies();
+                    }
+                })
+                .subscribe(
+                        new Consumer<List<Movie>>() {
+                            @Override
+                            public void accept(List<Movie> moviesList) throws Throwable {
+                                searchedMoviesLiveData.setValue(moviesList);
                             }
                         },
                         new Consumer<Throwable>() {
