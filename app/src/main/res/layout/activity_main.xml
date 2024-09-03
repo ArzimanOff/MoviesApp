@@ -131,6 +131,7 @@
             android:src="@drawable/clear_search_bar"
             android:visibility="visible"
             android:contentDescription="@string/search_bar_cleaner_btn_text" />
+
     </LinearLayout>
 
 
